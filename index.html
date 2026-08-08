@@ -549,63 +549,6 @@
   }
   .map-btn:hover{ background:var(--gold); color:var(--bg-deep); }
 
-  /* ---------- Gift ---------- */
-  .gift-card{
-    position:relative;
-    width:100%;
-    max-width:360px;
-    margin:0 auto;
-    padding:30px 26px 26px;
-    border:1px solid rgba(198,161,91,0.35);
-    border-radius:12px;
-    background:linear-gradient(160deg, rgba(198,161,91,0.08), rgba(243,236,221,0.02));
-  }
-  .gift-card-label{
-    font-size:11px;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color:var(--gold);
-    margin-bottom:12px;
-  }
-  .gift-card-number{
-    font-family:'Cormorant Garamond',serif;
-    font-size:clamp(22px,5.5vw,30px);
-    letter-spacing:0.06em;
-    color:var(--ivory);
-    word-spacing:0.15em;
-  }
-  .gift-card-holder{
-    margin-top:10px;
-    font-size:12px;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    color:var(--ivory-dim);
-  }
-  .gift-copy-btn{
-    margin-top:22px;
-    width:100%;
-    border:1px solid var(--gold);
-    background:transparent;
-    color:var(--gold-light);
-    font-family:'Jost',sans-serif;
-    font-size:12px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    padding:13px;
-    border-radius:999px;
-    cursor:pointer;
-    transition:all .3s ease;
-  }
-  .gift-copy-btn:hover{ background:var(--gold); color:var(--bg-deep); }
-  .gift-copy-btn.copied{ background:var(--gold); color:var(--bg-deep); border-color:var(--gold); }
-  .gift-note{
-    margin:28px auto 0;
-    max-width:400px;
-    font-size:14px;
-    color:var(--ivory-dim);
-  }
-  #gift .map-btn{ margin-top:22px; }
-
   /* ---------- RSVP ---------- */
   #rsvp{ padding-bottom:100px; }
   .rsvp-form{
@@ -947,24 +890,6 @@
 
   <div class="divider"></div>
 
-  <!-- GIFT -->
-  <section id="gift" class="snap-page">
-    <h2 class="section-title reveal reveal-up" data-i18n="giftTitle"></h2>
-    <p class="subtitle reveal reveal-up" style="transition-delay:.1s;margin-bottom:34px;" data-i18n="giftText"></p>
-
-    <div class="gift-card reveal reveal-scale" style="transition-delay:.2s">
-      <div class="gift-card-label" data-i18n="cardLabel"></div>
-      <div class="gift-card-number" id="gift-card-number">8600 0000 0000 0000</div>
-      <div class="gift-card-holder">TEST TEST</div>
-      <button class="gift-copy-btn" id="gift-copy-btn" type="button" data-i18n="copyBtn"></button>
-    </div>
-
-    <p class="gift-note reveal reveal-up" style="transition-delay:.3s" data-i18n="giftNote"></p>
-    <a class="map-btn reveal reveal-up" style="transition-delay:.4s" id="gift-telegram" href="https://t.me/xursanovm" target="_blank" rel="noopener" data-i18n="telegramBtn"></a>
-  </section>
-
-  <div class="divider"></div>
-
   <footer class="snap-page">
     <div class="foot-msg reveal reveal-up" data-i18n="footerText"></div>
     <div class="foot-names reveal reveal-up" style="transition-delay:.15s">Muxammad &amp; Zarnigorxon — 11.09.2026</div>
@@ -1005,13 +930,6 @@ const translations = {
     thankYouTitle: "Rahmat!",
     thankYouMsg: "Bu biz uchun juda qadrli. To'yimizda ko'rishguncha!",
     footerText: "Sizni sabrsizlik bilan kutamiz",
-    giftTitle: "To'yona bermoqchimisiz?",
-    giftText: "Bilamiz, quvonchimizni eshitib, qanday hadiya qilishni o'ylab yuribsiz — shuning uchun sizni o'ylab, kichik bir imkoniyat tayyorlab qo'ydik",
-    cardLabel: "Karta raqami",
-    copyBtn: "Nusxalash",
-    copiedBtn: "Nusxalandi!",
-    giftNote: "Chekni pastdagi Telegramga tashlab qo'ysangiz, biz uchun juda yoqimli bo'ladi",
-    telegramBtn: "Telegramga chek yuborish",
   },
   ru: {
     eyebrow: "Свадебное приглашение",
@@ -1042,13 +960,6 @@ const translations = {
     thankYouTitle: "Спасибо!",
     thankYouMsg: "Это очень много значит для нас. До встречи на свадьбе!",
     footerText: "С нетерпением ждём встречи с вами",
-    giftTitle: "Хотите сделать той-подарок?",
-    giftText: "Знаем, вы уже думаете, чем порадовать нас в этот день — поэтому мы позаботились об этом заранее",
-    cardLabel: "Номер карты",
-    copyBtn: "Скопировать",
-    copiedBtn: "Скопировано!",
-    giftNote: "Будем очень рады, если вы пришлёте чек в Telegram ниже",
-    telegramBtn: "Отправить чек в Telegram",
   },
   en: {
     eyebrow: "Wedding Invitation",
@@ -1079,13 +990,6 @@ const translations = {
     thankYouTitle: "Thank you!",
     thankYouMsg: "This means so much to us. See you at the wedding!",
     footerText: "We can't wait to celebrate with you",
-    giftTitle: "Want to send a gift?",
-    giftText: "We know you might be wondering how to celebrate with us — so we made it easy for you",
-    cardLabel: "Card number",
-    copyBtn: "Copy",
-    copiedBtn: "Copied!",
-    giftNote: "We'd love it if you sent your receipt to the Telegram below",
-    telegramBtn: "Send receipt on Telegram",
   }
 };
 
@@ -1271,38 +1175,6 @@ function initScrollReveals(){
   }
   initPoemTypewriter(reduced);
 }
-
-/* ======================= GIFT CARD COPY ======================= */
-(function(){
-  const copyBtn = document.getElementById("gift-copy-btn");
-  const cardNumberEl = document.getElementById("gift-card-number");
-  if(!copyBtn || !cardNumberEl) return;
-
-  copyBtn.addEventListener("click", ()=>{
-    const digits = cardNumberEl.textContent.replace(/\s/g, "");
-    const finish = ()=>{
-      copyBtn.classList.add("copied");
-      copyBtn.textContent = translations[currentLang].copiedBtn;
-      setTimeout(()=>{
-        copyBtn.classList.remove("copied");
-        copyBtn.textContent = translations[currentLang].copyBtn;
-      }, 1800);
-    };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(digits).then(finish).catch(finish);
-    } else {
-      const temp = document.createElement("textarea");
-      temp.value = digits;
-      temp.style.position = "fixed";
-      temp.style.opacity = "0";
-      document.body.appendChild(temp);
-      temp.select();
-      try{ document.execCommand("copy"); }catch(err){}
-      document.body.removeChild(temp);
-      finish();
-    }
-  });
-})();
 
 /* ======================= BACKGROUND MUSIC ======================= */
 const bgMusic = document.getElementById("bg-music");
