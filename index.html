@@ -212,6 +212,18 @@
     margin:0 auto;
   }
 
+  /* ---------- Poem ---------- */
+  #poem .verse{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(19px,3.4vw,28px);
+    line-height:1.9;
+    color:var(--gold-light);
+    max-width:520px;
+    margin:0 auto;
+  }
+
   /* ---------- Countdown ---------- */
   h2.section-title{
     font-family:'Cormorant Garamond',serif;
@@ -464,6 +476,18 @@
 
   <div class="divider"></div>
 
+  <!-- POEM -->
+  <section id="poem" class="snap-page">
+    <p class="verse">
+      <span data-i18n="poemLine1"></span><br>
+      <span data-i18n="poemLine2"></span><br>
+      <span data-i18n="poemLine3"></span><br>
+      <span data-i18n="poemLine4"></span>
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- COUNTDOWN -->
   <section id="countdown" class="snap-page">
     <h2 class="section-title" data-i18n="countdownTitle"></h2>
@@ -553,9 +577,13 @@
 const translations = {
   uz: {
     eyebrow: "To'y taklifnomasi",
-    subtitle: "Sizni nikoh to'yimizga taklif qilamiz",
+    subtitle: "Ikki qalb bir umrga birlashadigan kun keldi",
     dateLine: "11-sentyabr, 2026 · soat 19:00",
     scrollCue: "Pastga suring",
+    poemLine1: "Ikki yurak bir maqsadda uchrashgan,",
+    poemLine2: "Ikki qalb baxt izlab, bir-birin topgan.",
+    poemLine3: "Shu muqaddas kunda yonimizda bo'ling,",
+    poemLine4: "Duolaringiz-la yo'limiz yorishgan.",
     countdownTitle: "To'yimizgacha qoldi",
     days: "kun", hours: "soat", minutes: "daqiqa", seconds: "soniya",
     venueLabel: "To'yxona",
@@ -564,8 +592,8 @@ const translations = {
     dateValue: "11-sentyabr, 2026-yil",
     timeValue: "Boshlanishi: soat 19:00",
     mapBtn: "Xaritada ko'rish",
-    rsvpTitle: "Ishtirokingizni tasdiqlang",
-    rsvpSubtitle: "Bayramimizni siz bilan birga nishonlashni orzu qilamiz",
+    rsvpTitle: "Quvonchimizga sherik bo'lasizmi?",
+    rsvpSubtitle: "Baxtimizning eng go'zal kunida yoningizda bo'lishingizni orzu qilamiz",
     nameLabel: "Ismingiz",
     attendingLabel: "Kelasizmi?",
     attendingYes: "Ha, albatta",
@@ -574,14 +602,18 @@ const translations = {
     messageLabel: "Xabar (ixtiyoriy)",
     submitBtn: "Yuborish",
     thankYouTitle: "Rahmat!",
-    thankYouMsg: "Javobingiz qabul qilindi. To'yimizda ko'rishguncha!",
+    thankYouMsg: "Bu biz uchun juda qadrli. To'yimizda ko'rishguncha!",
     footerText: "Sizni sabrsizlik bilan kutamiz",
   },
   ru: {
     eyebrow: "Свадебное приглашение",
-    subtitle: "Приглашаем вас на нашу свадьбу",
+    subtitle: "Настал день, когда два сердца станут одним",
     dateLine: "11 сентября 2026 · 19:00",
     scrollCue: "Прокрутите вниз",
+    poemLine1: "Две судьбы, что шли разными дорогами,",
+    poemLine2: "Однажды встретились — и стали одной.",
+    poemLine3: "Пусть в этот день, наполненный любовью,",
+    poemLine4: "Вы будете рядом, разделив его с нами.",
     countdownTitle: "До свадьбы осталось",
     days: "дней", hours: "часов", minutes: "минут", seconds: "секунд",
     venueLabel: "Место проведения",
@@ -590,8 +622,8 @@ const translations = {
     dateValue: "11 сентября 2026 года",
     timeValue: "Начало: 19:00",
     mapBtn: "Открыть карту",
-    rsvpTitle: "Подтвердите участие",
-    rsvpSubtitle: "Будем рады отпраздновать этот день вместе с вами",
+    rsvpTitle: "Будете ли вы рядом в этот день?",
+    rsvpSubtitle: "Этот праздник будет неполным без вас — ждём вашего ответа",
     nameLabel: "Ваше имя",
     attendingLabel: "Вы придёте?",
     attendingYes: "Да, конечно",
@@ -600,14 +632,18 @@ const translations = {
     messageLabel: "Сообщение (необязательно)",
     submitBtn: "Отправить",
     thankYouTitle: "Спасибо!",
-    thankYouMsg: "Ваш ответ получен. До встречи на свадьбе!",
+    thankYouMsg: "Это очень много значит для нас. До встречи на свадьбе!",
     footerText: "С нетерпением ждём встречи с вами",
   },
   en: {
     eyebrow: "Wedding Invitation",
-    subtitle: "You are warmly invited to our wedding",
+    subtitle: "The day has come for two hearts to become one",
     dateLine: "September 11, 2026 · 7:00 PM",
     scrollCue: "Scroll down",
+    poemLine1: "Two hearts that wandered separate roads,",
+    poemLine2: "Found one another, and made one home.",
+    poemLine3: "On this bright day of love and laughter,",
+    poemLine4: "We hope you'll stand beside us, hand in hand.",
     countdownTitle: "Counting down to our day",
     days: "days", hours: "hours", minutes: "minutes", seconds: "seconds",
     venueLabel: "Venue",
@@ -616,8 +652,8 @@ const translations = {
     dateValue: "September 11, 2026",
     timeValue: "Starts at 7:00 PM",
     mapBtn: "View on map",
-    rsvpTitle: "Confirm your attendance",
-    rsvpSubtitle: "We would love to celebrate this day with you",
+    rsvpTitle: "Will you be there to share our joy?",
+    rsvpSubtitle: "This celebration wouldn't feel complete without you — we're waiting to hear from you",
     nameLabel: "Your name",
     attendingLabel: "Will you attend?",
     attendingYes: "Yes, gladly",
@@ -626,7 +662,7 @@ const translations = {
     messageLabel: "Message (optional)",
     submitBtn: "Submit",
     thankYouTitle: "Thank you!",
-    thankYouMsg: "Your response has been recorded. See you at the wedding!",
+    thankYouMsg: "This means so much to us. See you at the wedding!",
     footerText: "We can't wait to celebrate with you",
   }
 };
