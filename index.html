@@ -1390,12 +1390,51 @@ document.querySelectorAll(".attend-btn").forEach(btn=>{
   });
 });
 
+/* TODO: @BotFather orqali bot yaratib, tokenni shu yerga qo'ying.
+   Chat ID ni olish uchun botga bir marta /start yozing (yoki uni kanalga admin
+   qilib qo'shing), so'ng https://api.telegram.org/bot<TOKEN>/getUpdates
+   sahifasini oching — javobda "chat":{"id":...} qiymatini topasiz. */
+const TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
+const TELEGRAM_CHAT_ID = "YOUR_CHAT_ID_HERE";
+
+function sendRsvpToTelegram(data){
+  if(TELEGRAM_BOT_TOKEN === "YOUR_BOT_TOKEN_HERE" || !TELEGRAM_BOT_TOKEN){
+    return Promise.resolve();
+  }
+  const lines = [
+    "Yangi RSVP javobi",
+    "Ism: " + data.name,
+    "Keladimi: " + (data.attending === "yes" ? "Ha" : "Yo'q"),
+    "Mehmonlar soni: " + data.guests,
+  ];
+  if(data.message){ lines.push("Xabar: " + data.message); }
+  const text = lines.join("\n");
+  const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+  return fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text })
+  }).catch(err=>{ console.error("Telegramga yuborishda xatolik:", err); });
+}
+
 document.getElementById("rsvp-form").addEventListener("submit", (e)=>{
   e.preventDefault();
-  // Bu yerda backend/webhook ulanmagan — bu faqat frontend namoyishi.
-  document.getElementById("rsvp-form").style.display = "none";
-  const ty = document.getElementById("thank-you");
-  ty.classList.add("show");
+  const form = document.getElementById("rsvp-form");
+  const submitBtn = form.querySelector(".submit-btn");
+  const data = {
+    name: document.getElementById("rsvp-name").value.trim(),
+    attending: attendingValue,
+    guests: document.getElementById("rsvp-guests").value,
+    message: document.getElementById("rsvp-message").value.trim(),
+  };
+
+  submitBtn.disabled = true;
+
+  sendRsvpToTelegram(data).finally(()=>{
+    form.style.display = "none";
+    const ty = document.getElementById("thank-you");
+    ty.classList.add("show");
+  });
 });
 
 /* ======================= THREE.JS PARTICLE FIELD ======================= */
