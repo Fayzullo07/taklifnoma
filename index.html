@@ -261,8 +261,18 @@
     color:var(--ivory-dim);
   }
 
-  .map-btn{
+  .map-embed{
     margin-top:36px;
+    width:100%;
+    height:320px;
+    border:1px solid rgba(198,161,91,0.3);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .map-embed iframe{ display:block; filter:saturate(0.85) brightness(0.92); }
+
+  .map-btn{
+    margin-top:20px;
     display:inline-block;
     border:1px solid var(--gold);
     color:var(--gold-light);
@@ -465,7 +475,13 @@
         <div class="detail-sub" data-i18n="timeValue"></div>
       </div>
     </div>
-    <a class="map-btn" id="map-link" href="https://www.google.com/maps/search/?api=1&query=Dilshoda%20to%27yxona" target="_blank" rel="noopener" data-i18n="mapBtn"></a>
+    <div class="map-embed">
+      <iframe
+        src="https://yandex.uz/map-widget/v1/?ll=65.970182%2C40.029042&z=17&pt=65.970182%2C40.029042,pm2rdm"
+        width="100%" height="100%" frameborder="0" loading="lazy"
+        allowfullscreen title="Dilshoda to'yxona - xarita"></iframe>
+    </div>
+    <a class="map-btn" id="map-link" href="https://yandex.uz/maps/org/dilshoda/228351531215/?tab=gallery&ll=65.970182%2C40.029042&z=19" target="_blank" rel="noopener" data-i18n="mapBtn"></a>
   </section>
 
   <div class="divider"></div>
@@ -528,7 +544,7 @@ const translations = {
     days: "kun", hours: "soat", minutes: "daqiqa", seconds: "soniya",
     detailsTitle: "Tadbir tafsilotlari",
     venueLabel: "To'yxona",
-    addressValue: "Manzil tez orada aniqlashtiriladi",
+    addressValue: "Manzilni pastdagi xaritadan ko'ring",
     dateLabel: "Sana va vaqt",
     dateValue: "11-sentyabr, 2026-yil",
     timeValue: "Boshlanishi: soat 19:00",
@@ -555,7 +571,7 @@ const translations = {
     days: "дней", hours: "часов", minutes: "минут", seconds: "секунд",
     detailsTitle: "Детали торжества",
     venueLabel: "Место проведения",
-    addressValue: "Адрес будет уточнён позже",
+    addressValue: "Адрес смотрите на карте ниже",
     dateLabel: "Дата и время",
     dateValue: "11 сентября 2026 года",
     timeValue: "Начало: 19:00",
@@ -582,7 +598,7 @@ const translations = {
     days: "days", hours: "hours", minutes: "minutes", seconds: "seconds",
     detailsTitle: "Event Details",
     venueLabel: "Venue",
-    addressValue: "Address to be confirmed soon",
+    addressValue: "See location on the map below",
     dateLabel: "Date & Time",
     dateValue: "September 11, 2026",
     timeValue: "Starts at 7:00 PM",
