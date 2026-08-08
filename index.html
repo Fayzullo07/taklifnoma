@@ -23,10 +23,12 @@
 
   html{
     scroll-behavior:smooth;
-    scroll-snap-type:y proximity;
+  }
+  html.snap-ready{
+    scroll-snap-type:y mandatory;
   }
   @media (prefers-reduced-motion: reduce){
-    html{ scroll-snap-type:none; }
+    html.snap-ready{ scroll-snap-type:none; }
   }
 
   body{
@@ -39,6 +41,7 @@
 
   .snap-page{
     scroll-snap-align:start;
+    scroll-snap-stop:always;
     min-height:100svh;
     display:flex;
     flex-direction:column;
@@ -653,6 +656,18 @@ document.querySelectorAll(".lang-switch button").forEach(btn=>{
 });
 
 applyLang("uz");
+
+/* ======================= SCROLL SNAP (enabled once layout has settled) ======================= */
+function enableScrollSnap(){
+  document.documentElement.classList.add("snap-ready");
+}
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(enableScrollSnap).catch(enableScrollSnap);
+} else {
+  enableScrollSnap();
+}
+window.addEventListener("load", enableScrollSnap);
+setTimeout(enableScrollSnap, 2500);
 
 /* ======================= ROSETTE PETALS (SVG) ======================= */
 const petalGroup = document.getElementById("petals");
