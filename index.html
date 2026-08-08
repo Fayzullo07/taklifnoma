@@ -21,7 +21,13 @@
 
   *{box-sizing:border-box;margin:0;padding:0;}
 
-  html{scroll-behavior:smooth;}
+  html{
+    scroll-behavior:smooth;
+    scroll-snap-type:y mandatory;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-snap-type:none; }
+  }
 
   body{
     background:var(--bg-deep);
@@ -29,6 +35,15 @@
     font-family:'Jost',sans-serif;
     overflow-x:hidden;
     position:relative;
+  }
+
+  .snap-page{
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
   }
 
   #particle-canvas{
@@ -419,7 +434,7 @@
 <div class="content">
 
   <!-- HERO -->
-  <section id="hero">
+  <section id="hero" class="snap-page">
     <div class="eyebrow" data-i18n="eyebrow"></div>
     <div class="name">Muxammad</div>
     <span class="amp">&amp;</span>
@@ -448,7 +463,7 @@
   <div class="divider"></div>
 
   <!-- COUNTDOWN -->
-  <section id="countdown">
+  <section id="countdown" class="snap-page">
     <h2 class="section-title" data-i18n="countdownTitle"></h2>
     <div class="countdown">
       <div class="count-box"><div class="count-num" id="cd-days">00</div><div class="count-label" data-i18n="days"></div></div>
@@ -461,7 +476,7 @@
   <div class="divider"></div>
 
   <!-- DETAILS -->
-  <section id="details">
+  <section id="details" class="snap-page">
     <h2 class="section-title" data-i18n="detailsTitle"></h2>
     <div class="details-grid">
       <div class="detail-row">
@@ -487,7 +502,7 @@
   <div class="divider"></div>
 
   <!-- RSVP -->
-  <section id="rsvp">
+  <section id="rsvp" class="snap-page">
     <h2 class="section-title" data-i18n="rsvpTitle"></h2>
     <p class="subtitle" data-i18n="rsvpSubtitle" style="margin-bottom:10px;"></p>
 
@@ -524,7 +539,7 @@
     </div>
   </section>
 
-  <footer>
+  <footer class="snap-page">
     <div class="foot-msg" data-i18n="footerText"></div>
     <div class="foot-names">Muxammad &amp; Zarnigorxon — 11.09.2026</div>
   </footer>
