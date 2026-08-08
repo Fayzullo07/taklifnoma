@@ -724,6 +724,59 @@
     .details-grid{ grid-template-columns:1fr 1fr; }
     .detail-row:last-child{ grid-column:1 / -1; }
   }
+
+  /* ---------- Scroll reveal animations ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .8s cubic-bezier(.16,.7,.24,1), transform .8s cubic-bezier(.16,.7,.24,1);
+  }
+  .reveal.reveal-left{ transform:translateX(-38px); }
+  .reveal.reveal-right{ transform:translateX(38px); }
+  .reveal.reveal-scale{ transform:scale(.92); }
+  .reveal.in-view{ opacity:1; transform:none; }
+
+  .stagger-group > *{
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .7s cubic-bezier(.16,.7,.24,1), transform .7s cubic-bezier(.16,.7,.24,1);
+  }
+  .stagger-group.in-view > *{ opacity:1; transform:none; }
+  .stagger-group > *:nth-child(1){ transition-delay:.03s; }
+  .stagger-group > *:nth-child(2){ transition-delay:.13s; }
+  .stagger-group > *:nth-child(3){ transition-delay:.23s; }
+  .stagger-group > *:nth-child(4){ transition-delay:.33s; }
+  .stagger-group > *:nth-child(5){ transition-delay:.43s; }
+  .stagger-group > *:nth-child(6){ transition-delay:.53s; }
+
+  .type-line{
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+    vertical-align:bottom;
+    width:0;
+    border-right:2px solid transparent;
+  }
+  .type-line.typing{
+    border-right-color:var(--gold);
+    animation:caret-blink .85s step-end infinite;
+  }
+  .type-line.done{ border-right-color:transparent; }
+  @keyframes caret-blink{ 50%{ border-right-color:transparent; } }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .stagger-group > *{
+      opacity:1 !important;
+      transform:none !important;
+      transition:none !important;
+    }
+    .type-line{
+      width:auto !important;
+      transition:none !important;
+      border-right-color:transparent !important;
+      animation:none !important;
+    }
+  }
 </style>
 </head>
 <body class="intro-locked">
@@ -777,12 +830,12 @@
 
   <!-- HERO -->
   <section id="hero" class="snap-page">
-    <div class="eyebrow" data-i18n="eyebrow"></div>
-    <div class="name">Muxammad</div>
-    <span class="amp">&amp;</span>
-    <div class="name italic">Zarnigorxon</div>
+    <div class="eyebrow reveal reveal-up" style="transition-delay:.05s" data-i18n="eyebrow"></div>
+    <div class="name reveal reveal-left" style="transition-delay:.15s">Muxammad</div>
+    <span class="amp reveal reveal-scale" style="transition-delay:.35s">&amp;</span>
+    <div class="name italic reveal reveal-right" style="transition-delay:.42s">Zarnigorxon</div>
 
-    <div class="rosette" aria-hidden="true">
+    <div class="rosette reveal reveal-scale" style="transition-delay:.6s" aria-hidden="true">
       <svg viewBox="0 0 200 200" fill="none">
         <g stroke="#C6A15B" stroke-width="0.6" opacity="0.85">
           <circle cx="100" cy="100" r="92"/>
@@ -793,10 +846,10 @@
       </svg>
     </div>
 
-    <div class="subtitle" data-i18n="subtitle"></div>
-    <div class="date-line" data-i18n="dateLine"></div>
+    <div class="subtitle reveal reveal-up" style="transition-delay:.75s" data-i18n="subtitle"></div>
+    <div class="date-line reveal reveal-up" style="transition-delay:.85s" data-i18n="dateLine"></div>
 
-    <div class="scroll-cue">
+    <div class="scroll-cue reveal reveal-up" style="transition-delay:1s">
       <span data-i18n="scrollCue"></span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
     </div>
@@ -807,10 +860,10 @@
   <!-- POEM -->
   <section id="poem" class="snap-page">
     <p class="verse">
-      <span data-i18n="poemLine1"></span><br>
-      <span data-i18n="poemLine2"></span><br>
-      <span data-i18n="poemLine3"></span><br>
-      <span data-i18n="poemLine4"></span>
+      <span class="type-line" data-i18n="poemLine1"></span><br>
+      <span class="type-line" data-i18n="poemLine2"></span><br>
+      <span class="type-line" data-i18n="poemLine3"></span><br>
+      <span class="type-line" data-i18n="poemLine4"></span>
     </p>
   </section>
 
@@ -818,8 +871,8 @@
 
   <!-- COUNTDOWN -->
   <section id="countdown" class="snap-page">
-    <h2 class="section-title" data-i18n="countdownTitle"></h2>
-    <div class="countdown">
+    <h2 class="section-title reveal reveal-up" data-i18n="countdownTitle"></h2>
+    <div class="countdown stagger-group">
       <div class="count-box"><div class="count-num" id="cd-days">00</div><div class="count-label" data-i18n="days"></div></div>
       <div class="count-box"><div class="count-num" id="cd-hours">00</div><div class="count-label" data-i18n="hours"></div></div>
       <div class="count-box"><div class="count-num" id="cd-mins">00</div><div class="count-label" data-i18n="minutes"></div></div>
@@ -832,34 +885,34 @@
   <!-- DETAILS -->
   <section id="details" class="snap-page">
     <div class="details-grid">
-      <div class="detail-row">
+      <div class="detail-row reveal reveal-left">
         <div class="detail-label" data-i18n="venueLabel"></div>
         <div class="detail-value">Dilshoda to'yxona</div>
         <div class="detail-sub" data-i18n="addressValue"></div>
       </div>
-      <div class="detail-row">
+      <div class="detail-row reveal reveal-right">
         <div class="detail-label" data-i18n="dateLabel"></div>
         <div class="detail-value" data-i18n="dateValue"></div>
         <div class="detail-sub" data-i18n="timeValue"></div>
       </div>
     </div>
-    <div class="map-embed">
+    <div class="map-embed reveal reveal-scale">
       <iframe
         src="https://yandex.uz/map-widget/v1/?ll=65.970182%2C40.029042&z=17&pt=65.970182%2C40.029042,pm2rdm"
         width="100%" height="100%" frameborder="0" loading="lazy"
         allowfullscreen title="Dilshoda to'yxona - xarita"></iframe>
     </div>
-    <a class="map-btn" id="map-link" href="https://yandex.uz/maps/org/dilshoda/228351531215/?tab=gallery&ll=65.970182%2C40.029042&z=19" target="_blank" rel="noopener" data-i18n="mapBtn"></a>
+    <a class="map-btn reveal reveal-up" id="map-link" href="https://yandex.uz/maps/org/dilshoda/228351531215/?tab=gallery&ll=65.970182%2C40.029042&z=19" target="_blank" rel="noopener" data-i18n="mapBtn"></a>
   </section>
 
   <div class="divider"></div>
 
   <!-- RSVP -->
   <section id="rsvp" class="snap-page">
-    <h2 class="section-title" data-i18n="rsvpTitle"></h2>
-    <p class="subtitle" data-i18n="rsvpSubtitle" style="margin-bottom:10px;"></p>
+    <h2 class="section-title reveal reveal-up" data-i18n="rsvpTitle"></h2>
+    <p class="subtitle reveal reveal-up" style="transition-delay:.1s;margin-bottom:10px;" data-i18n="rsvpSubtitle"></p>
 
-    <form class="rsvp-form" id="rsvp-form">
+    <form class="rsvp-form stagger-group" id="rsvp-form">
       <div class="field">
         <label data-i18n="nameLabel"></label>
         <input type="text" id="rsvp-name" required>
@@ -896,25 +949,25 @@
 
   <!-- GIFT -->
   <section id="gift" class="snap-page">
-    <h2 class="section-title" data-i18n="giftTitle"></h2>
-    <p class="subtitle" data-i18n="giftText" style="margin-bottom:34px;"></p>
+    <h2 class="section-title reveal reveal-up" data-i18n="giftTitle"></h2>
+    <p class="subtitle reveal reveal-up" style="transition-delay:.1s;margin-bottom:34px;" data-i18n="giftText"></p>
 
-    <div class="gift-card">
+    <div class="gift-card reveal reveal-scale" style="transition-delay:.2s">
       <div class="gift-card-label" data-i18n="cardLabel"></div>
       <div class="gift-card-number" id="gift-card-number">8600 0000 0000 0000</div>
       <div class="gift-card-holder">TEST TEST</div>
       <button class="gift-copy-btn" id="gift-copy-btn" type="button" data-i18n="copyBtn"></button>
     </div>
 
-    <p class="gift-note" data-i18n="giftNote"></p>
-    <a class="map-btn" id="gift-telegram" href="https://t.me/username" target="_blank" rel="noopener" data-i18n="telegramBtn"></a>
+    <p class="gift-note reveal reveal-up" style="transition-delay:.3s" data-i18n="giftNote"></p>
+    <a class="map-btn reveal reveal-up" style="transition-delay:.4s" id="gift-telegram" href="https://t.me/username" target="_blank" rel="noopener" data-i18n="telegramBtn"></a>
   </section>
 
   <div class="divider"></div>
 
   <footer class="snap-page">
-    <div class="foot-msg" data-i18n="footerText"></div>
-    <div class="foot-names">Muxammad &amp; Zarnigorxon — 11.09.2026</div>
+    <div class="foot-msg reveal reveal-up" data-i18n="footerText"></div>
+    <div class="foot-names reveal reveal-up" style="transition-delay:.15s">Muxammad &amp; Zarnigorxon — 11.09.2026</div>
   </footer>
 
 </div>
@@ -1127,6 +1180,7 @@ applyLang("uz");
     setTimeout(()=>{
       overlay.classList.add("hide");
       document.body.classList.remove("intro-locked");
+      if(typeof initScrollReveals === "function"){ initScrollReveals(); }
     }, 600);
     setTimeout(()=>{ overlay.remove(); }, 1500);
   }
@@ -1142,6 +1196,81 @@ applyLang("uz");
     if(e.target === track || e.target === fill){ autoSlideOpen(); }
   });
 })();
+
+/* ======================= SCROLL REVEAL ANIMATIONS ======================= */
+const revealObserver = new IntersectionObserver((entries, obs)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("in-view");
+      obs.unobserve(entry.target);
+    }
+  });
+}, { threshold:0.18, rootMargin:"0px 0px -8% 0px" });
+
+function measureTextWidth(text, font){
+  const canvas = measureTextWidth._canvas || (measureTextWidth._canvas = document.createElement("canvas"));
+  const ctx = canvas.getContext("2d");
+  ctx.font = font;
+  return ctx.measureText(text).width;
+}
+
+function typePoemLines(){
+  const lines = document.querySelectorAll("#poem .verse .type-line");
+  let delay = 150;
+  lines.forEach(span=>{
+    const text = span.textContent;
+    const font = getComputedStyle(span).font;
+    const width = Math.ceil(measureTextWidth(text, font)) + 3;
+    const charCount = Math.max(text.length, 1);
+    const duration = Math.min(Math.max(charCount * 42, 450), 1500);
+    setTimeout(()=>{
+      span.classList.add("typing");
+      span.style.transition = `width ${duration}ms steps(${charCount},end)`;
+      requestAnimationFrame(()=>{
+        requestAnimationFrame(()=>{ span.style.width = width + "px"; });
+      });
+      setTimeout(()=>{
+        span.classList.remove("typing");
+        span.classList.add("done");
+      }, duration + 200);
+    }, delay);
+    delay += duration + 320;
+  });
+}
+
+function initPoemTypewriter(reduced){
+  const lines = document.querySelectorAll("#poem .verse .type-line");
+  if(lines.length === 0) return;
+  if(reduced){
+    lines.forEach(span=>{ span.style.width = "auto"; });
+    return;
+  }
+  const poemEl = document.querySelector("#poem .verse");
+  const poemObserver = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        typePoemLines();
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.4 });
+  poemObserver.observe(poemEl);
+}
+
+let revealsStarted = false;
+function initScrollReveals(){
+  if(revealsStarted) return;
+  revealsStarted = true;
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const targets = document.querySelectorAll(".reveal, .stagger-group");
+  if(reduced){
+    targets.forEach(el=> el.classList.add("in-view"));
+  } else {
+    targets.forEach(el=> revealObserver.observe(el));
+  }
+  initPoemTypewriter(reduced);
+}
 
 /* ======================= GIFT CARD COPY ======================= */
 (function(){
