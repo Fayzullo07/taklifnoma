@@ -100,6 +100,35 @@
     .lang-switch button{ padding:5px 8px; }
   }
 
+  /* ---------- Music toggle ---------- */
+  .music-toggle{
+    position:fixed;
+    bottom:20px;right:20px;
+    z-index:50;
+    width:44px;height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(7,29,24,0.6);
+    backdrop-filter:blur(6px);
+    border:1px solid rgba(198,161,91,0.35);
+    border-radius:50%;
+    color:var(--ivory-dim);
+    cursor:pointer;
+    transition:color .3s ease, border-color .3s ease;
+  }
+  .music-toggle svg{ width:19px;height:19px; }
+  .music-toggle.playing{ color:var(--gold-light); border-color:var(--gold); }
+  .music-toggle.playing svg{ animation:music-pulse 1.6s ease-in-out infinite; }
+  @keyframes music-pulse{ 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+  @media (prefers-reduced-motion: reduce){
+    .music-toggle.playing svg{ animation:none; }
+  }
+  @media (max-width:640px){
+    .music-toggle{ bottom:14px; right:14px; width:40px;height:40px; }
+    .music-toggle svg{ width:17px;height:17px; }
+  }
+
   /* ---------- Section base ---------- */
   section{
     position:relative;
@@ -439,6 +468,18 @@
 
 <canvas id="particle-canvas"></canvas>
 
+<audio id="bg-music" loop preload="auto">
+  <source src="audio/background-music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-toggle" id="music-toggle" aria-label="Musiqa" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
+</button>
+
 <div class="lang-switch">
   <button data-lang="uz" class="active">UZ</button>
   <button data-lang="ru">RU</button>
@@ -688,6 +729,37 @@ document.querySelectorAll(".lang-switch button").forEach(btn=>{
 });
 
 applyLang("uz");
+
+/* ======================= BACKGROUND MUSIC ======================= */
+const bgMusic = document.getElementById("bg-music");
+const musicToggle = document.getElementById("music-toggle");
+bgMusic.volume = 0.55;
+
+function updateMusicIcon(){
+  musicToggle.classList.toggle("playing", !bgMusic.paused);
+}
+
+function startMusicOnce(){
+  if(bgMusic.paused){
+    bgMusic.play().catch(()=>{});
+  }
+}
+
+["pointerdown","keydown","touchstart"].forEach(evt=>{
+  document.addEventListener(evt, startMusicOnce, { once:true, passive:true });
+});
+
+bgMusic.addEventListener("play", updateMusicIcon);
+bgMusic.addEventListener("pause", updateMusicIcon);
+
+musicToggle.addEventListener("click", (e)=>{
+  e.stopPropagation();
+  if(bgMusic.paused){
+    bgMusic.play().catch(()=>{});
+  } else {
+    bgMusic.pause();
+  }
+});
 
 /* ======================= SCROLL SNAP (enabled once layout has settled) ======================= */
 function enableScrollSnap(){
