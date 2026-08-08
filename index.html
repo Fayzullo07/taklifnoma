@@ -1397,23 +1397,43 @@ document.querySelectorAll(".attend-btn").forEach(btn=>{
 const TELEGRAM_BOT_TOKEN = "8993050082:AAHNL3A4zV-cYIP0zVTTgwy74Ucua-1yOOQ";
 const TELEGRAM_CHAT_ID = "-1004476747980";
 
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function sendRsvpToTelegram(data){
   if(TELEGRAM_BOT_TOKEN === "YOUR_BOT_TOKEN_HERE" || !TELEGRAM_BOT_TOKEN){
     return Promise.resolve();
   }
+  const attendingYes = data.attending === "yes";
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("uz-UZ", { day:"2-digit", month:"2-digit", year:"numeric" });
+  const timeStr = now.toLocaleTimeString("uz-UZ", { hour:"2-digit", minute:"2-digit" });
+
   const lines = [
-    "Yangi RSVP javobi",
-    "Ism: " + data.name,
-    "Keladimi: " + (data.attending === "yes" ? "Ha" : "Yo'q"),
-    "Mehmonlar soni: " + data.guests,
+    attendingYes ? "🎉 <b>Yangi mehmon tasdiqladi!</b>" : "💌 <b>Yangi javob keldi</b>",
+    "",
+    "👤 <b>Ism:</b> " + escapeHtml(data.name),
+    (attendingYes ? "✅" : "❌") + " <b>Keladimi:</b> " + (attendingYes ? "Ha, albatta" : "Afsuski, yo'q"),
   ];
-  if(data.message){ lines.push("Xabar: " + data.message); }
+  if(attendingYes){
+    lines.push("👥 <b>Mehmonlar soni:</b> " + escapeHtml(data.guests));
+  }
+  if(data.message){
+    lines.push("💬 <b>Xabar:</b> " + escapeHtml(data.message));
+  }
+  lines.push("");
+  lines.push("🗓 " + dateStr + " · " + timeStr);
+
   const text = lines.join("\n");
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
   return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text })
+    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: "HTML" })
   }).catch(err=>{ console.error("Telegramga yuborishda xatolik:", err); });
 }
 
